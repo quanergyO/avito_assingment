@@ -1,6 +1,7 @@
 package handler
 
 import (
+	"log/slog"
 	"net/http"
 
 	"github.com/gin-gonic/gin"
@@ -9,8 +10,16 @@ import (
 )
 
 func (h *Handler) SignUp(c *gin.Context) {
+	const op = "Handler.SignUp"
+
+	log := slog.With(
+		slog.String("op", op),
+	)
+
+	log.Info("Call /SignUp")
 	var user types.UserType
 	if err := c.BindJSON(&user); err != nil {
+		log.Error("Invalid input body")
 		response.NewErrorResponse(c, http.StatusBadRequest, "Invalid input body")
 		return
 	}

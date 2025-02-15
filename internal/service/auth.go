@@ -27,6 +27,13 @@ func NewAuthService(repo *repository.Repository) *AuthService {
 }
 
 func (s *AuthService) CreateUser(user types.UserType) (int, error) {
+	const op = "AuthService.CreateUser"
+
+	log := slog.With(
+		slog.String("op", op),
+	)
+	log.Info("Call CreateUser")
+
 	user.Password = s.generatePasswordHash(user.Password)
 
 	return s.repo.CreateUser(user)

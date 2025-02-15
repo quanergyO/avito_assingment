@@ -69,6 +69,10 @@ func makeMigrations(cfg Config) error {
 		return err
 	}
 
-	m.Up()
+	err = m.Up()
+	if err != nil {
+		slog.Error("Migration is not used", err.Error())
+	}
+
 	return nil
 }

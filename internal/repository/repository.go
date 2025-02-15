@@ -3,6 +3,7 @@ package repository
 import (
 	"database/sql"
 
+	"github.com/quanergyO/avito_assingment/internal/repository/postgres"
 	"github.com/quanergyO/avito_assingment/types"
 )
 
@@ -16,5 +17,7 @@ type Repository struct {
 }
 
 func NewRepository(db *sql.DB) *Repository {
-	return &Repository{}
+	return &Repository{
+		Authorization: postgres.NewAuth(db),
+	}
 }
