@@ -22,5 +22,10 @@ migrateUp:
 migrateDown:
 	migrate -path ./schema -database 'postgres://postgres:qwerty@localhost:5432/postgres?sslmode=disable' down
 
+teste2e:
+	docker run --name=avito-test-bd -e POSTGRES_PASSWORD='qwerty' -p 5438:5432 -d --rm postgres
+	go test -count=1 ./tests/ || true
+	docker stop avito-test-bd
+
 test:
 	go test ./... -v

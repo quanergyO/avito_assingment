@@ -5,6 +5,7 @@ import (
 	"github.com/quanergyO/avito_assingment/types"
 )
 
+//go:generate mockgen -source=service.go -destination=../mocks/mock_services.go -package=mocks
 type Authorization interface {
 	CreateUser(user types.SignInInput) (int, error)
 	CheckAuthData(username, password string) (types.UserDAO, error)

@@ -17,6 +17,11 @@ type UserInfo struct {
 	TransactionInfo []TransactionsResponse
 }
 
+type SendCoinRequest struct {
+	ReceiverId int `json:"receiver_id"`
+	Amount     int `json:"amount"`
+}
+
 type UserResponse struct {
 	Username string `json:"username" db:"username"`
 	Coins    int    `json:"coins" db:"coins"`
