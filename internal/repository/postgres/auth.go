@@ -16,7 +16,7 @@ func NewAuth(db *sql.DB) *Auth {
 	return &Auth{db: db}
 }
 
-func (r *Auth) CreateUser(user types.UserType) (int, error) {
+func (r *Auth) CreateUser(user types.SignInInput) (int, error) {
 	const op = "postgres.Auth.CreateUser"
 
 	log := slog.With(
@@ -40,7 +40,7 @@ func (r *Auth) CreateUser(user types.UserType) (int, error) {
 	return userId, nil
 }
 
-func (r *Auth) GetUser(username, password string) (types.UserType, error) {
+func (r *Auth) GetUser(username, password string) (types.UserDAO, error) {
 	const op = "postgres.Auth.GetUser"
 
 	log := slog.With(
@@ -48,11 +48,11 @@ func (r *Auth) GetUser(username, password string) (types.UserType, error) {
 	)
 	log.Info("Call GetUser")
 
-	var user types.UserType
+	var user types.UserDAO
 	query := fmt.Sprintf("SELECT id, username, password_hash, coins FROM %s WHERE username=$1 AND password_hash=$2", userTable)
 	err := r.db.QueryRow(query, username, password).Scan(&user.Id, &user.Username, &user.Password, &user.Coins)
 	if err != nil {
-		return types.UserType{}, err
+		return types.UserDAO{}, err
 	}
 
 	return user, nil

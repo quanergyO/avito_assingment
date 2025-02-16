@@ -1,6 +1,7 @@
 package handler
 
 import (
+	"log/slog"
 	"net/http"
 
 	"github.com/gin-gonic/gin"
@@ -10,6 +11,7 @@ import (
 func (h *Handler) GetInfo(c *gin.Context) {
 	userId, err := h.getUserId(c)
 	if err != nil {
+		slog.Warn("Invalid token")
 		response.NewErrorResponse(c, http.StatusBadRequest, err.Error())
 		return
 	}

@@ -1,13 +1,10 @@
 package types
 
-import "github.com/dgrijalva/jwt-go"
+import (
+	"time"
 
-type UserType struct {
-	Id       int    `json:"-" db:"id"`
-	Username string `json:"username" binding:"required"`
-	Password string `json:"password" binding:"required"`
-	Coins    int    `json:"coins"`
-}
+	"github.com/dgrijalva/jwt-go"
+)
 
 type SignInInput struct {
 	Username string `json:"username" binding:"required"`
@@ -15,6 +12,26 @@ type SignInInput struct {
 }
 
 type UserInfo struct {
+	UserInfo        UserResponse
+	PurchasesInfo   []PurchasesResponse
+	TransactionInfo []TransactionsResponse
+}
+
+type UserResponse struct {
+	Username string `json:"username" db:"username"`
+	Coins    int    `json:"coins" db:"coins"`
+}
+
+type PurchasesResponse struct {
+	ItemName string `json:"item_name"`
+	Quantity int    `json:"quantity" db:"quantity"`
+}
+
+type TransactionsResponse struct {
+	FromUserId int       `json:"from_user_id" db:"from_user_id"`
+	ToUserId   int       `json:"to_user_id" db:"to_user_id"`
+	Timestamp  time.Time `json:"timestamp" db:"timestamp"`
+	Amount     int       `json:"amount" db:"amount"`
 }
 
 type TokenClaims struct {

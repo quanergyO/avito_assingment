@@ -1,8 +1,6 @@
 package service
 
 import (
-	"fmt"
-
 	"github.com/quanergyO/avito_assingment/internal/repository"
 	"github.com/quanergyO/avito_assingment/types"
 )
@@ -18,13 +16,13 @@ func NewUserService(repo *repository.Repository) *UserService {
 }
 
 func (s *UserService) GetUserInfo(userID int) (types.UserInfo, error) {
-	return types.UserInfo{}, fmt.Errorf("Not implemented")
+	return s.repo.User.GetUserInfo(userID)
 }
 
 func (s *UserService) SendCoins(senderID, receiverID int, amount int) error {
-	return fmt.Errorf("Not implemented")
+	return s.repo.User.SendCoins(senderID, receiverID, amount)
 }
 
 func (s *UserService) BuyItem(userID int, itemName string) error {
-	return fmt.Errorf("Not implemented")
+	return s.repo.User.BuyItem(userID, itemName)
 }

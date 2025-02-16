@@ -17,7 +17,7 @@ func (h *Handler) SignUp(c *gin.Context) {
 	)
 
 	log.Info("Call /SignUp")
-	var user types.UserType
+	var user types.SignInInput
 	if err := c.BindJSON(&user); err != nil {
 		log.Error("Invalid input body")
 		response.NewErrorResponse(c, http.StatusBadRequest, "Invalid input body")

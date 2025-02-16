@@ -6,9 +6,9 @@ import (
 )
 
 type Authorization interface {
-	CreateUser(user types.UserType) (int, error)
-	CheckAuthData(username, password string) (types.UserType, error)
-	GenerateToken(user types.UserType) (string, error)
+	CreateUser(user types.SignInInput) (int, error)
+	CheckAuthData(username, password string) (types.UserDAO, error)
+	GenerateToken(user types.UserDAO) (string, error)
 	ParserToken(accessToken string) (*types.TokenClaims, error)
 }
 

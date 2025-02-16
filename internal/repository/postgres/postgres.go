@@ -24,7 +24,10 @@ type Config struct {
 }
 
 const (
-	userTable = "users"
+	userTable         = "users"
+	itemsTable        = "items"
+	purchasesTable    = "purchases"
+	transactionsTable = "transactions"
 )
 
 func NewDB(cfg Config) (*sql.DB, error) {
